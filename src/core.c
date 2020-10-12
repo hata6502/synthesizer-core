@@ -1,6 +1,7 @@
 // Copyright [2020] <Tomoyuki Hata>
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "Component.h"
 #include "OutPort.h"
@@ -20,11 +21,9 @@ int main() {
   connectPort(component2.inPorts[0], component1.outPort);
   connectPort(component2.inPorts[1], &outPort);
 
-  outPort.value = 1.5;
-
-  syncComponent(outPort.inPort->component);
+  setOutPortValue(&outPort, 1.5);
 
   printf("%f\n", component2.outPort->value);
 
-  return 0;
+  return EXIT_SUCCESS;
 }
