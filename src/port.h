@@ -1,3 +1,5 @@
+// Copyright [2020] <Tomoyuki Hata>
+
 #pragma once
 
 #include "InPort.h"

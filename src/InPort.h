@@ -1,3 +1,5 @@
+// Copyright [2020] <Tomoyuki Hata>
+
 #pragma once
 
 struct in_port_t;
@@ -9,4 +11,4 @@ typedef struct in_port_t {
   double *value;
 } InPort;
 
-InPort *initInPort(InPort *, struct component_t *);
+void initInPort(InPort *, struct component_t *);

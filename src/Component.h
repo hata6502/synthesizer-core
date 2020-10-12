@@ -1,3 +1,5 @@
+// Copyright [2020] <Tomoyuki Hata>
+
 #pragma once
 
 enum component_type_t;
@@ -16,6 +18,7 @@ typedef struct component_t {
   ComponentType type;
 } Component;
 
-Component *initComponent(Component *, ComponentType);
-double mixerSynchronizer(struct in_port_t[COMPONENT_IN_PORTS_LENGTH]);
-Component *syncComponent(Component *);
+void initComponent(Component *, ComponentType);
+void deinitComponent(Component *);
+double mixerSynchronizer(struct in_port_t *[COMPONENT_IN_PORTS_LENGTH]);
+void syncComponent(Component *);

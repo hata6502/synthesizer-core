@@ -1,3 +1,5 @@
+// Copyright [2020] <Tomoyuki Hata>
+
 #pragma once
 
 struct out_port_t;
@@ -9,4 +11,4 @@ typedef struct out_port_t {
   double value;
 } OutPort;
 
-OutPort *initOutPort(OutPort *);
+void initOutPort(OutPort *);
