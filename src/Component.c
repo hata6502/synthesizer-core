@@ -33,17 +33,20 @@ void deinitComponent(Component *component) {
 
 double mixerSynchronizer(InPort *inPorts[COMPONENT_IN_PORTS_LENGTH]) {
   InPort **inPort;
-  double value = 0.0;
+  double sum = 0.0;
 
   for (inPort = inPorts; *inPort != NULL; inPort++) {
-    value += *(*inPort)->value;
+    double *value = (*inPort)->value;
+
+    sum += value == NULL ? 0.0 : *value;
   }
 
-  return value;
+  return sum;
 }
 
 double (*const synchronizer[])(InPort *[COMPONENT_IN_PORTS_LENGTH]) = {
-    mixerSynchronizer};
+  mixerSynchronizer
+};
 
 void syncComponent(Component *component) {
   component->outPort->value = synchronizer[component->type](component->inPorts);
