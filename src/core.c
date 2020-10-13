@@ -8,7 +8,8 @@
 #include "port.h"
 
 int main() {
-  Component component1, component2;
+  Component component1;
+  Component component2;
   OutPort outPort;
 
   initComponent(&component1, Mixer);

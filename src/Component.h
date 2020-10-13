@@ -12,7 +12,7 @@ typedef enum component_type_t { Mixer } ComponentType;
 #include "OutPort.h"
 
 typedef struct component_t {
-  struct in_port_t *inPorts[COMPONENT_IN_PORTS_LENGTH + 1];
+  struct in_port_t *inPorts[COMPONENT_IN_PORTS_LENGTH];
   struct out_port_t *outPort;
   ComponentType type;
 } Component;

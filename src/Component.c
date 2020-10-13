@@ -16,7 +16,7 @@ void initComponent(Component *component, ComponentType type) {
     initInPort(component->inPorts[index], component);
   }
 
-  component->inPorts[COMPONENT_IN_PORTS_LENGTH] = NULL;
+  //component->inPorts[COMPONENT_IN_PORTS_LENGTH] = NULL;
 
   component->outPort = (OutPort *)malloc(sizeof(OutPort));
 }
@@ -32,19 +32,23 @@ void deinitComponent(Component *component) {
 }
 
 double mixerSynchronizer(InPort *inPorts[COMPONENT_IN_PORTS_LENGTH]) {
-  InPort **inPort;
+  int index;
   double sum = 0.0;
 
-  for (inPort = inPorts; *inPort != NULL; inPort++) {
-    double *value = (*inPort)->value;
+  for (index = 0; index < COMPONENT_IN_PORTS_LENGTH; index++) {
+    OutPort *outPort = inPorts[index]->outPort;
 
-    sum += value == NULL ? 0.0 : *value;
+    if (outPort == NULL) {
+      continue;
+    }
+
+    sum += outPort->value;
   }
 
   return sum;
 }
 
-double (*const synchronizer[])(InPort *[COMPONENT_IN_PORTS_LENGTH]) = {
+double (* synchronizer[])(InPort *[COMPONENT_IN_PORTS_LENGTH]) = {
   mixerSynchronizer
 };
 

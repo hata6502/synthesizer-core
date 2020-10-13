@@ -6,3 +6,4 @@
 #include "OutPort.h"
 
 void connectPort(InPort *, OutPort *);
+void disconnectPort(InPort *);

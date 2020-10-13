@@ -6,5 +6,5 @@
 
 void initInPort(InPort *inPort, Component *component) {
   inPort->component = component;
-  inPort->value = NULL;
+  inPort->outPort = NULL;
 }
