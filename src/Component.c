@@ -16,7 +16,7 @@ void initComponent(Component *component, ComponentType type) {
     initInPort(component->inPorts[index], component);
   }
 
-  //component->inPorts[COMPONENT_IN_PORTS_LENGTH] = NULL;
+  component->inPorts[COMPONENT_IN_PORTS_LENGTH] = NULL;
 
   component->outPort = (OutPort *)malloc(sizeof(OutPort));
 }
