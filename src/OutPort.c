@@ -1,5 +1,6 @@
 // Copyright [2020] <Tomoyuki Hata>
 
+#include <math.h>
 #include <stddef.h>
 
 #include "Component.h"
@@ -11,10 +12,16 @@ void initOutPort(OutPort *outPort) {
   for (index = 0; index < OUT_PORT_IN_PORTS_LENGTH; index++) {
     outPort->inPorts[index] = NULL;
   }
+
+  outPort->value = NAN;
 }
 
 void setOutPortValue(OutPort *outPort, double value) {
   int index;
+
+  if (outPort->value == value) {
+    return;
+  }
 
   outPort->value = value;
 

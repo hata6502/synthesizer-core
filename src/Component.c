@@ -51,5 +51,7 @@ double (* synchronizer[])(InPort *[COMPONENT_IN_PORTS_LENGTH]) = {
 };
 
 void syncComponent(Component *component) {
-  component->outPort->value = synchronizer[component->type](component->inPorts);
+  setOutPortValue(
+    component->outPort,
+    synchronizer[component->type](component->inPorts));
 }
