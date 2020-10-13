@@ -1,5 +1,7 @@
 // Copyright [2020] <Tomoyuki Hata>
 
+#define COMPONENT_LENGTH 8192
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,12 +9,10 @@
 #include "OutPort.h"
 #include "port.h"
 
-#define TEST 16
-
 int main() {
-  Component components[TEST];
+  Component components[COMPONENT_LENGTH];
 
-  for (int index = 0; index < TEST; index++) {
+  for (int index = 0; index < COMPONENT_LENGTH; index++) {
     initComponent(&components[index], Mixer);
   }
 
@@ -21,17 +21,22 @@ int main() {
   initOutPort(&outPort);
 
   connectPort(components[0].inPorts[0], &outPort);
+  connectPort(components[0].inPorts[1], &outPort);
 
-  for (int index = 1; index < TEST; index++) {
+  for (int index = 1; index < COMPONENT_LENGTH; index++) {
     connectPort(components[index].inPorts[0], components[index - 1].outPort);
-    connectPort(components[index - 1].inPorts[1], components[index].outPort);
+    connectPort(components[index].inPorts[1], components[index - 1].outPort);
   }
 
   syncComponentCount = 0;
 
   setOutPortValue(&outPort, 1.0);
 
-  printf("%f\n", components[TEST - 1].outPort->value);
+  printf("%f\n", components[COMPONENT_LENGTH - 1].outPort->value);
+
+  for (int index = 0; index < COMPONENT_LENGTH; index++) {
+    deinitComponent(&components[index]);
+  }
 
   return EXIT_SUCCESS;
 }
