@@ -7,9 +7,7 @@
 #include "OutPort.h"
 
 void initOutPort(OutPort *outPort) {
-  int index;
-
-  for (index = 0; index < OUT_PORT_IN_PORTS_LENGTH; index++) {
+  for (int index = 0; index < OUT_PORT_IN_PORTS_LENGTH; index++) {
     outPort->inPorts[index] = NULL;
   }
 
@@ -17,15 +15,13 @@ void initOutPort(OutPort *outPort) {
 }
 
 void setOutPortValue(OutPort *outPort, double value) {
-  int index;
-
   if (outPort->value == value) {
     return;
   }
 
   outPort->value = value;
 
-  for (index = 0; index < OUT_PORT_IN_PORTS_LENGTH; index++) {
+  for (int index = 0; index < OUT_PORT_IN_PORTS_LENGTH; index++) {
     if (outPort->inPorts[index] == NULL) {
       continue;
     }

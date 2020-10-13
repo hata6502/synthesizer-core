@@ -1,16 +1,19 @@
 // Copyright [2020] <Tomoyuki Hata>
 
+#define INFINITE_LOOP_COUNT 65536
+
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "Component.h"
 
-void initComponent(Component *component, ComponentType type) {
-  int index;
+int syncComponentCount;
 
+void initComponent(Component *component, ComponentType type) {
   component->type = type;
 
-  for (index = 0; index < COMPONENT_IN_PORTS_LENGTH; index++) {
+  for (int index = 0; index < COMPONENT_IN_PORTS_LENGTH; index++) {
     component->inPorts[index] = (InPort *)malloc(sizeof(InPort));
 
     initInPort(component->inPorts[index], component);
@@ -20,9 +23,7 @@ void initComponent(Component *component, ComponentType type) {
 }
 
 void deinitComponent(Component *component) {
-  int index;
-
-  for (index = 0; index < COMPONENT_IN_PORTS_LENGTH; index++) {
+  for (int index = 0; index < COMPONENT_IN_PORTS_LENGTH; index++) {
     free(component->inPorts[index]);
   }
 
@@ -30,10 +31,9 @@ void deinitComponent(Component *component) {
 }
 
 double mixerSynchronizer(InPort *inPorts[COMPONENT_IN_PORTS_LENGTH]) {
-  int index;
   double sum = 0.0;
 
-  for (index = 0; index < COMPONENT_IN_PORTS_LENGTH; index++) {
+  for (int index = 0; index < COMPONENT_IN_PORTS_LENGTH; index++) {
     OutPort *outPort = inPorts[index]->outPort;
 
     if (outPort == NULL) {
@@ -51,6 +51,13 @@ double (* synchronizer[])(InPort *[COMPONENT_IN_PORTS_LENGTH]) = {
 };
 
 void syncComponent(Component *component) {
+  syncComponentCount++;
+
+  if (syncComponentCount >= INFINITE_LOOP_COUNT) {
+    fprintf(stderr, "syncComponent: Infinite loop detected. \n");
+    exit(EXIT_FAILURE);
+  }
+
   setOutPortValue(
     component->outPort,
     synchronizer[component->type](component->inPorts));

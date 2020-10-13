@@ -7,24 +7,31 @@
 #include "OutPort.h"
 #include "port.h"
 
-int main() {
-  Component component1;
-  Component component2;
-  OutPort outPort;
+#define TEST 16
 
-  initComponent(&component1, Mixer);
-  initComponent(&component2, Mixer);
+int main() {
+  Component components[TEST];
+
+  for (int index = 0; index < TEST; index++) {
+    initComponent(&components[index], Mixer);
+  }
+
+  OutPort outPort;
 
   initOutPort(&outPort);
 
-  connectPort(component1.inPorts[0], &outPort);
+  connectPort(components[0].inPorts[0], &outPort);
 
-  connectPort(component2.inPorts[0], component1.outPort);
-  connectPort(component2.inPorts[1], &outPort);
+  for (int index = 1; index < TEST; index++) {
+    connectPort(components[index].inPorts[0], components[index - 1].outPort);
+    connectPort(components[index - 1].inPorts[1], components[index].outPort);
+  }
 
-  setOutPortValue(&outPort, 1.5);
+  syncComponentCount = 0;
 
-  printf("%f\n", component2.outPort->value);
+  setOutPortValue(&outPort, 1.0);
+
+  printf("%f\n", components[TEST - 1].outPort->value);
 
   return EXIT_SUCCESS;
 }

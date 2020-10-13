@@ -7,11 +7,11 @@
 #include "port.h"
 
 void connectPort(InPort *inPort, OutPort *outPort) {
-  int index;
-
   disconnectPort(inPort);
 
   inPort->outPort = outPort;
+
+  int index;
 
   for (index = 0; index < OUT_PORT_IN_PORTS_LENGTH; index++) {
     if (outPort->inPorts[index] != NULL) {
@@ -30,12 +30,13 @@ void connectPort(InPort *inPort, OutPort *outPort) {
 }
 
 void disconnectPort(InPort *inPort) {
-  int index;
   OutPort *outPort = inPort->outPort;
 
   if (outPort == NULL) {
     return;
   }
+
+  int index;
 
   for (index = 0; index < OUT_PORT_IN_PORTS_LENGTH; index++) {
     if (outPort->inPorts[index] != inPort) {
