@@ -15,19 +15,21 @@ void initComponent(Component *component, ComponentType type) {
   component->type = type;
 
   for (int index = 0; index < COMPONENT_IN_PORTS_LENGTH; index++) {
-    component->inPorts[index] = (InPort *)malloc(sizeof(InPort));
+    component->inPorts[index] = malloc(sizeof(InPort));
 
     initInPort(component->inPorts[index], component);
   }
 
-  component->outPort = (OutPort *)malloc(sizeof(OutPort));
+  component->outPort = malloc(sizeof(OutPort));
 }
 
 void deinitComponent(Component *component) {
   for (int index = 0; index < COMPONENT_IN_PORTS_LENGTH; index++) {
+    deinitInPort(component->inPorts[index]);
     free(component->inPorts[index]);
   }
 
+  deinitOutPort(component->outPort);
   free(component->outPort);
 }
 
@@ -39,11 +41,9 @@ void syncComponent(Component *component) {
     exit(EXIT_FAILURE);
   }
 
-  double (* handlers[])(Component *) = {
-    (double (*)(Component *))syncMixerComponent
-  };
-
   setOutPortValue(
     component->outPort,
-    handlers[component->type](component));
+    (double (* [])(Component *)) {
+      (double (*)(Component *))syncMixerComponent
+    }[component->type](component));
 }

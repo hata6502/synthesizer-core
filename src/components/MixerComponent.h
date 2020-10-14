@@ -10,6 +10,6 @@ typedef struct mixer_component_t {
   Component super;
 } MixerComponent;
 
-void initMixerComponent(MixerComponent *component);
-void deinitMixerComponent(MixerComponent *component);
-double syncMixerComponent(MixerComponent *component);
+void initMixerComponent(MixerComponent *);
+void deinitMixerComponent(MixerComponent *);
+double syncMixerComponent(MixerComponent *);

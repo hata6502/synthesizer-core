@@ -8,3 +8,5 @@ void initInPort(InPort *inPort, Component *component) {
   inPort->component = component;
   inPort->outPort = NULL;
 }
+
+void deinitInPort(InPort *inPort) {}

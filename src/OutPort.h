@@ -10,8 +10,10 @@ struct out_port_t;
 
 typedef struct out_port_t {
   struct in_port_t *inPorts[OUT_PORT_IN_PORTS_LENGTH];
-  double value;
+  double _value;
 } OutPort;
 
 void initOutPort(OutPort *);
+void deinitOutPort(OutPort *);
+double getOutPortValue(OutPort *);
 void setOutPortValue(OutPort *, double);

@@ -11,15 +11,21 @@ void initOutPort(OutPort *outPort) {
     outPort->inPorts[index] = NULL;
   }
 
-  outPort->value = NAN;
+  outPort->_value = NAN;
+}
+
+void deinitOutPort(OutPort *outPort) {}
+
+double getOutPortValue(OutPort *outPort) {
+  return outPort->_value;
 }
 
 void setOutPortValue(OutPort *outPort, double value) {
-  if (outPort->value == value) {
+  if (outPort->_value == value) {
     return;
   }
 
-  outPort->value = value;
+  outPort->_value = value;
 
   for (int index = 0; index < OUT_PORT_IN_PORTS_LENGTH; index++) {
     if (outPort->inPorts[index] == NULL) {

@@ -5,25 +5,25 @@
 #include "../Component.h"
 #include "MixerComponent.h"
 
-void initMixerComponent(MixerComponent *component) {
-  initComponent((Component *)component, Mixer);
+void initMixerComponent(MixerComponent *mixerComponent) {
+  initComponent(&mixerComponent->super, Mixer);
 }
 
-void deinitMixerComponent(MixerComponent *component) {
-  deinitComponent((Component *)component);
+void deinitMixerComponent(MixerComponent *mixerComponent) {
+  deinitComponent(&mixerComponent->super);
 }
 
-double syncMixerComponent(MixerComponent *component) {
+double syncMixerComponent(MixerComponent *mixerComponent) {
   double sum = 0.0;
 
   for (int index = 0; index < COMPONENT_IN_PORTS_LENGTH; index++) {
-    OutPort *outPort = component->super.inPorts[index]->outPort;
+    OutPort *outPort = mixerComponent->super.inPorts[index]->outPort;
 
     if (outPort == NULL) {
       continue;
     }
 
-    sum += outPort->value;
+    sum += getOutPortValue(outPort);
   }
 
   return sum;

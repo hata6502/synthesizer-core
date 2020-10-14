@@ -13,3 +13,4 @@ typedef struct in_port_t {
 } InPort;
 
 void initInPort(InPort *, struct component_t *);
+void deinitInPort(InPort *);
