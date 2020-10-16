@@ -12,3 +12,4 @@ jobs:
       - run: sudo apt install libcunit1-dev
       - run: make
       - run: bin/test
+      - uses: codecov/codecov-action@v1

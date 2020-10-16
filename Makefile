@@ -1,2 +1,2 @@
 test: src/*.c src/components/*c
-	cc -o bin/test src/*.c src/components/*c -lcunit
+	cc -ftest-coverage -fprofile-arcs -o bin/test src/*.c src/components/*c -lcunit
