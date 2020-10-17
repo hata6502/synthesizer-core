@@ -2,13 +2,14 @@
 
 #pragma once
 
+#define COMPONENT_DELTA_TIME_IN_PORT 0
 #define COMPONENT_IN_PORTS_LENGTH 16
 
 extern int syncComponentCount;
 
 struct component_t;
 
-typedef enum component_type_t { Mixer } ComponentType;
+typedef enum component_type_t { Mixer, Sine } ComponentType;
 
 #include "InPort.h"
 #include "OutPort.h"

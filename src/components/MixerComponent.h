@@ -2,6 +2,8 @@
 
 #pragma once
 
+#define MIXER_COMPONENT_VALUE_IN_PORT 1
+
 struct mixer_component_t;
 
 #include "../Component.h"

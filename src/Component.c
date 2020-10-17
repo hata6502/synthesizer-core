@@ -1,13 +1,19 @@
 // Copyright [2020] <Tomoyuki Hata>
 
-#define INFINITE_LOOP_COUNT 65536
-
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "Component.h"
 #include "components/MixerComponent.h"
+#include "components/SineComponent.h"
+
+#define INFINITE_LOOP_COUNT 65536
+
+#define SYNC_COMPONENT_HANDLERS ((double (* [])(Component *)) { \
+  (double (*)(Component *))syncMixerComponent, \
+  (double (*)(Component *))syncSineComponent, \
+})
 
 int syncComponentCount;
 
@@ -43,7 +49,5 @@ void syncComponent(Component *component) {
 
   setOutPortValue(
     component->outPort,
-    (double (* [])(Component *)) {
-      (double (*)(Component *))syncMixerComponent
-    }[component->type](component));
+    SYNC_COMPONENT_HANDLERS[component->type](component));
 }
